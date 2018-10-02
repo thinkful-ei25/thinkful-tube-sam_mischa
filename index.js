@@ -17,8 +17,8 @@ function renderResult(result) {
 
 function displaySearchData(data){
   console.log(data);
-  console.log(typeof data);
-  console.log(typeof data.items);
+  console.log(typeof []);
+  // console.log(typeof data.items[);
   //const results = data.items.maps((item) => renderResult(item));
   //$('.js-search-results').html(results);
 }
