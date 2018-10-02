@@ -1,8 +1,11 @@
 /* global $ */
+// in tubeSearch.js ==> renders // event handlers
+// in api.js ==> call to api and modules
+// in index.js ==> calling tubeSerach.bindeventlistener tubesearch.render
 
-// 1 - user plugs in search in input form
-// 2 - user presses submit button
-// 3 - website fetches youtube api results passing in searchterm
+// -1 - user plugs in search in input form
+// -2 - user presses submit button
+// -3 - website fetches youtube api results passing in searchterm
 // 4 - we take / parse data from youtube api
 //    -- push into store
 // 5 - we read item from store and create html item 
@@ -11,6 +14,7 @@
 'use strict';
 const YOUTUBE_SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search';
 
+//api
 function getDataFromAPI(searchTerm, callback){
   const query = {
     part : 'snippet',
@@ -20,6 +24,7 @@ function getDataFromAPI(searchTerm, callback){
   $.getJSON(YOUTUBE_SEARCH_URL, query, callback);
 }
 
+//tubeSearch
 function createItem(result){
   return {
     imageUrl : result.snippet.thumbnails.default.url,
@@ -28,7 +33,8 @@ function createItem(result){
   };
 }
 
-function renderResult(result) {
+//tubeSearch
+function generateHtmlElement(result) {
   console.log('result: ' , result);
   const item = createItem(result);
   return `<div data-item-id=${item.id}>
@@ -37,19 +43,21 @@ function renderResult(result) {
    </div>`;
 }
 
-function displaySearchData(data){
+//tubeSearch
+function render(data){
   const items = data.items;
-  const results = items.map((item) => renderResult(item));
+  const results = items.map((item) => generateHtmlElement(item));
   $('.js-search-results').html(results);
 }
 
+//tubeSearch
 function watchSubmit(){
   $('.js-search-form').submit((event) => {
     event.preventDefault();
     const query = $(event.currentTarget).find('.js-query');
     const queryVal = query.val();
     $(event.currentTarget).find('.js-query').val('');
-    getDataFromAPI(queryVal, displaySearchData);
+    getDataFromAPI(queryVal, render);
   });
 
 }
