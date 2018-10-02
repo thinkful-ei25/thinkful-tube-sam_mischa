@@ -12,15 +12,21 @@ function getDataFromAPI(searchTerm, callback){
 }
 
 function renderResult(result) {
-  return `<li> ${result.id}</li>`;
+  return `<div>
+  <iframe width="560" height="315" 
+  src="https://www.youtube.com/embed/${result.id.videoId}" 
+  frameborder="0"
+  encrypted-media"></iframe>
+   </div>`;
 }
 
 function displaySearchData(data){
   console.log(data);
   console.log(typeof data);
-  console.log(typeof data.items);
-  //const results = data.items.maps((item) => renderResult(item));
-  //$('.js-search-results').html(results);
+  console.log(data.items);
+  const items = data.items;
+  const results = items.map((item) => renderResult(item));
+  $('.js-search-results').html(results);
 }
 
 function watchSubmit(){
