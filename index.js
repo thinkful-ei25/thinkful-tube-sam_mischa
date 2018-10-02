@@ -1,4 +1,13 @@
 /* global $ */
+
+// 1 - user plugs in search in input form
+// 2 - user presses submit button
+// 3 - website fetches youtube api results passing in searchterm
+// 4 - we take / parse data from youtube api
+//    -- push into store
+// 5 - we read item from store and create html item 
+// 6 - we push item to htmlItem array
+// 7 - rendering htmlItms array to page
 'use strict';
 const YOUTUBE_SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search';
 
@@ -11,10 +20,20 @@ function getDataFromAPI(searchTerm, callback){
   $.getJSON(YOUTUBE_SEARCH_URL, query, callback);
 }
 
+function createItem(result){
+  return {
+    imageUrl : result.snippet.thumbnails.default.url,
+    title: result.snippet.title,
+    id: result.id.videoId
+  };
+}
+
 function renderResult(result) {
   console.log('result: ' , result);
-  return `<div>
-    <img src = ${result.snippet.thumbnails.default.url}></img>
+  const item = createItem(result);
+  return `<div data-item-id=${item.id}>
+    <h3>${item.title}</h3>
+    <img src = ${item.imageUrl}></img>
    </div>`;
 }
 
