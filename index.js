@@ -12,7 +12,15 @@ function getDataFromAPI(searchTerm, callback){
 }
 
 function renderResult(result) {
-  return ``;
+  return `<li> ${result.id}</li>`;
+}
+
+function displaySearchData(data){
+  console.log(data);
+  console.log(typeof data);
+  console.log(typeof data.items);
+  //const results = data.items.maps((item) => renderResult(item));
+  //$('.js-search-results').html(results);
 }
 
 function watchSubmit(){
@@ -21,8 +29,9 @@ function watchSubmit(){
     const query = $(event.currentTarget).find('.js-query');
     const queryVal = query.val();
     $(event.currentTarget).find('.js-query').val('');
+    getDataFromAPI(queryVal, displaySearchData);
   });
 
 }
 
-watchSubmit();
+$(watchSubmit);
