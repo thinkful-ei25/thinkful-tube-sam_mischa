@@ -12,8 +12,9 @@ function getDataFromAPI(searchTerm, callback){
 }
 
 function renderResult(result) {
+  console.log('result: ' , result);
   return `<div>
-    <img src = ${result}></img>
+    <img src = ${result.snippet.thumbnails.default.url}></img>
    </div>`;
 }
 
