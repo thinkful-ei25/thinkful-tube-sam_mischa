@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
+main {
+  max-width: 600px;
+}
+
+form {
+  margin-bottom: 30px;
+}
+
+.search-image {
+  min-width: 300px;
+}
+
+.search-result {
+  display: inline-block;
+  margin-right: 15px;
+  margin-left: 15px;
+}
